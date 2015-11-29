@@ -1,0 +1,24 @@
+{
+  "name": "tiamao-font",
+  "version": "1.0.0",
+  "authors": [
+    "luojh <1303364524@qq.com>"
+  ],
+  "description": "xox",
+  "main": "index.html",
+  "keywords": [
+    "学习"
+  ],
+  "license": "MIT",
+  "homepage": "github.com",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "seajs": "~3.0.0"
+  }
+}
