@@ -170,14 +170,21 @@ define(function(require, exports, module){
       //console.log(ob.master.currentOffsetY);
       return (Math.abs(evs.changedTouches[0].deltaY)>500 ? 500:Math.abs(evs.changedTouches[0].deltaY))/500
     };
+    var x=1;
     var rubber= function(ob, evs){
       ob.master.interactionStatus= [0, 0, 0];
       if(evs.type == 'touchmove' || evs.type == 'touchend'){
         if(ob.master.currentOffsetY>ob.master.innerContentTop){
-          ob.master.currentOffsetY = ob.master.innerContentTop+ evs.changedTouches[0].deltaY*.27 + evs.changedTouches[0].speedY*.8;
+          //console.log(ob.master.currentOffsetY-ob.master.innerContentTop);
+          /*ob.master.currentOffsetY = ob.master.innerContentTop+ evs.changedTouches[0].deltaY*.27 + evs.changedTouches[0].speedY*.8;
           ob.master.slideTime= 200;
+              //刷新*/
+
           var pf= (Math.abs(evs.changedTouches[0].deltaY)>500 ? 500:Math.abs(evs.changedTouches[0].deltaY))/500;
-          ob.master.interactionStatus= [100, evs.changedTouches[0].directionY, pf];    //刷新
+          ob.master.currentOffsetY = ob.master.innerContentTop+(ob.master.currentOffsetY-ob.master.innerContentTop)*x ;
+          ob.master.interactionStatus= [100, evs.changedTouches[0].directionY, pf];
+          console.log((ob.master.currentOffsetY-ob.master.innerContentTop)*x);
+          x= x-0.3;
         }
         if(ob.master.currentOffsetY< ob.master.innerContentBottom){
           ob.master.currentOffsetY = ob.master.innerContentBottom+ evs.changedTouches[0].deltaY*.27 + evs.changedTouches[0].speedY*.8;
@@ -210,11 +217,14 @@ define(function(require, exports, module){
     };
 
     var extraSlide= function(ob, evs){
-      var t= ( Math.abs(evs.changedTouches[0].speedY) *15 + Math.abs(evs.changedTouches[0].deltaY) *10 + Math.abs(evs.changedTouches[0].time)*12 ) * 0.15;
-      var m= (evs.changedTouches[0].speedY * 125 + evs.changedTouches[0].deltaY * 2 + (evs.changedTouches[0].speedY<0 ? -evs.changedTouches[0].time : evs.changedTouches[0].time)* 2 ) *0.15;
+      //var t= ( Math.abs(evs.changedTouches[0].speedY) *15 + Math.abs(evs.changedTouches[0].deltaY) *10 + Math.abs(evs.changedTouches[0].time)*12 ) * 0.15;
+     // var m= (evs.changedTouches[0].speedY * 125 + evs.changedTouches[0].deltaY * 2 + (evs.changedTouches[0].speedY<0 ? -evs.changedTouches[0].time : evs.changedTouches[0].time)* 2 ) *0.15;
+      var t= Math.abs(evs.changedTouches[0].speedY*40)+Math.abs(evs.changedTouches[0].deltaY *.5);
+      var m= evs.changedTouches[0].speedY*40;
         ob.master.slideTime= t;
-        ob.master.currentOffsetY += m ;
-      //console.log(evs.changedTouches[0].speedY, evs.changedTouches[0].deltaY, evs.changedTouches[0].time, t, m);
+        ob.master.currentOffsetY += m*1 ;
+      //console.log(t, m);
+      console.log(evs.changedTouches[0].speedY, evs.changedTouches[0].deltaY, evs.changedTouches[0].time, t, m);
     };
 
     var setBezier= function(ob){
